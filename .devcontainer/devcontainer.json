@@ -1,0 +1,54 @@
+{
+    "name": "VizVault Go Development",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "golang.Go",
+                "ms-vscode.vscode-json",
+                "redhat.vscode-yaml",
+                "ms-vscode.makefile-tools",
+                "github.vscode-pull-request-github",
+                "ms-vscode.remote-containers"
+            ],
+            "settings": {
+                "go.toolsManagement.checkForUpdates": "local",
+                "go.useLanguageServer": true,
+                "go.gopath": "/go",
+                "go.goroot": "/usr/local/go",
+                "terminal.integrated.defaultProfile.linux": "bash"
+            }
+        },
+        "jetbrains": {
+            "backend": "GoLand",
+            "plugins": [
+                "com.intellij.plugins.yaml",
+                "Docker",
+                "makefile-support",
+                "com.github.copilot"
+            ]
+        }
+    },
+    "forwardPorts": [8080, 8443, 9090],
+    "postCreateCommand": ".devcontainer/post-create.sh",
+    "remoteUser": "vscode",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "workspaceFolder": "/workspace",
+    "mounts": [
+        "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached,readonly"
+    ],
+    "containerEnv": {
+        "GOPATH": "/go",
+        "GOROOT": "/usr/local/go",
+        "CGO_ENABLED": "0"
+    },
+    "runArgs": ["--init", "--privileged"],
+    "shutdownAction": "stopContainer"
+}
